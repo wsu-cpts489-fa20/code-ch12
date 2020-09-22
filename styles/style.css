@@ -1,0 +1,47 @@
+/* Style the floating action button, which is fixed in the lower right of the app */
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:60px;
+	right:40px;
+	background-color:#13294E;
+	color:white;
+	border-radius:50px;
+	text-align:center;
+    box-shadow: 2px 2px 3px #999;
+    cursor: pointer;
+}
+
+.float-btn-icon{
+    margin-top:18px;
+    color: white;
+    font-size: 24px;
+}
+
+
+.close {
+    border: 2px solid black;
+    color: black;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .flex-container {
+    display: flex;
+  } 
+
+  .align-center {
+      text-align: center;
+      width: 100%;
+  }
+
