@@ -3,7 +3,7 @@ class WeatherStation extends React.Component {
     constructor(props) {
       super(props);
       this.state = {latitude: this.props.latitude,
-                    longitude: this.props.longitude
+                    longitude: this.props.longitude,
                    };
     }
 
@@ -40,16 +40,15 @@ class WeatherStation extends React.Component {
       }
     }
 
-    deleteStation = () => {
-        this.props.removeStation(this.props.stationId);
-    }
-
     render() {
         return (
             <div align="center" className="jumbotron">
-                <button className="close" onClick={this.deleteStation}>&times;</button>
+                {this.props.listIndex > 0 ? 
+                    <button className="btn btn-small" onClick={() => this.props.moveStation("up",this.props.stationId)}>
+                        <span className="fa fa-arrow-up"></span></button> : null}
+                <button className="close" onClick={() => this.props.removeStation(this.props.stationId)}>&times;</button>
                 <h2 className="align-center">
-                       Weather Conditions at {this.state.place}
+                       {this.state.place}
                 </h2> 
                 <h6><i>Last updated: {this.state.retrieved}</i></h6>
                 <h5>Conditions: {this.state.conditions}</h5>
@@ -65,6 +64,9 @@ class WeatherStation extends React.Component {
 
                 <label className="custom-control-label" htmlFor={"switch-" + this.props.stationId}>&nbsp;&deg;{this.state.tempUnit}</label>
                 </div>
+                {this.props.listIndex < this.props.maxIndex ?
+                  <button className="btn btn-small" onClick={() => this.props.moveStation("down",this.props.stationId)}>
+                      <span className="fa fa-arrow-down"></span></button> : null}
          </div>
         );
     }
@@ -139,6 +141,25 @@ class WeatherStation extends React.Component {
         this.setState({stations: newStations});
     }
 
+    //moveStation -- Given the direction in which to move the station and
+    //the id of the station to move, re-order the stations list accordingly
+    moveStation = (direction,stationId) => {
+        let newStations = [...this.state.stations]; //deep copy
+        for (let i = 0; i < newStations.length; ++i) {
+            if (newStations[i].stationId == stationId) {
+                //This is the one to move...
+                newStations.splice(i,1); //splice item out of array
+                if (direction == "up") { //splice in item 1 index higher
+                  newStations.splice(i-1,0,this.state.stations[i]);
+                } else { //splice in item 1 index lower
+                    newStations.splice(i+1,0,this.state.stations[i]);
+                }
+                break; //Break out of loop; we're done.
+            }
+        }
+        this.setState({stations: newStations});
+    }
+
   
     render() {
         let rows = [];
@@ -147,6 +168,9 @@ class WeatherStation extends React.Component {
                         latitude={this.state.stations[i].lat} 
                         longitude={this.state.stations[i].lon}
                         stationId={this.state.stations[i].stationId}
+                        listIndex={i}
+                        maxIndex={this.state.stations.length-1}
+                        moveStation={this.moveStation}
                         removeStation={this.removeStation} />
                      );
         }
