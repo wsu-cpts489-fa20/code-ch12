@@ -5,7 +5,7 @@
 	height:60px;
 	bottom:60px;
 	right:40px;
-	background-color:#13294E;
+	background-color:black;
 	color:white;
 	border-radius:50px;
 	text-align:center;
@@ -43,5 +43,10 @@
   .align-center {
       text-align: center;
       width: 100%;
+  }
+
+  .dark-icon {
+      color: black;
+      background-color: white;
   }
 
