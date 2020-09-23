@@ -42,7 +42,7 @@ class WeatherStation extends React.Component {
 
     render() {
         return (
-          <div>
+            <div align="center" className="jumbotron">
             <h2>Weather Conditions at {this.state.place}</h2>
             <h6><i>Last updated: {this.state.retrieved}</i></h6>
             <h5>Conditions: {this.state.conditions}</h5>
@@ -52,8 +52,9 @@ class WeatherStation extends React.Component {
             <h5>Wind Speed: {this.state.wind + " " + this.state.windUnit}</h5>
             <h5>Wind Direction: {this.state.windDirection + " " + this.state.windDirectionUnit}</h5>
             <div className="custom-control custom-switch">
-            <input type="checkbox" className="custom-control-input" id="customSwitches" onClick={this.toggleUnits} />
-            <label className="custom-control-label" htmlFor="customSwitches">&nbsp;&deg;{this.state.tempUnit}</label>
+                <input type="checkbox" className="custom-control-input" id={"switch-" + this.props.stationId} 
+                     onClick={this.toggleUnits} />
+                <label className="custom-control-label" htmlFor={"switch-" + this.props.stationId}>&nbsp;&deg;{this.state.tempUnit}</label>
             </div>
          </div>
         );
